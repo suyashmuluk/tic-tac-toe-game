@@ -1,0 +1,64 @@
+.dialog {
+    &__header {
+        position: relative;
+        &_title {
+            color: #141414;
+            font-size: 28px;
+        }
+        &-icon {
+            color: #141414;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    &__body {
+        padding-top: 1rem;
+
+        &_section {
+            text-align: center;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &_btn {
+            background-color: #ffe14d;
+            padding: 6px 30px;
+            font-size: 24px;
+            border-radius: 20px;
+            border: 0;
+            box-shadow: 2px 5px 26px -3px #9d9d9d;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .icon_container {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        right: 12px;
+        top: 32%;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #dfdfdf;
+        }
+
+        &:active {
+            background-color: #c1c1c1;
+        }
+    }
+}

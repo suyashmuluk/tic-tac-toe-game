@@ -1,0 +1,60 @@
+<div class="dialog">
+    <div mat-dialog-title class="dialog__header">
+        <span class="dialog__header_title">
+            @if (data.id === 'player_info') {
+            Add Players Info
+            }
+        </span>
+        @if (data.id !== 'player_info') {
+        <span class="material-symbols-outlined dialog__header-icon">
+            close
+        </span>
+        }
+    </div>
+
+    <div mat-dialog-content class="dialog__body">
+        @if (data.id === 'player_info') {
+        <form [formGroup]="player_form">
+            <div style="position: relative;">
+                <div class="dialog__body_section">
+                    <mat-form-field appearance="outline" style="width: 250px;">
+                        <mat-label>Player 1</mat-label>
+                        <input type="text" matInput formControlName="player_1">
+                        <mat-error>Please add Player 1 details</mat-error>
+                        <mat-icon matSuffix>close</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div class="dialog__body_section icon_container">
+                    <span class="material-symbols-outlined dialog__body_section-icon" (click)="swapPlayers()"
+                        matTooltip="Swap Players">
+                        swap_vert
+                    </span>
+                </div>
+
+                <div class="dialog__body_section">
+                    <mat-form-field appearance="outline" style="width: 250px;">
+                        <mat-label>Player 2</mat-label>
+                        <input type="text" matInput formControlName="player_2">
+                        <mat-error>Please add Player 2 details</mat-error>
+                        <mat-icon matSuffix>trip_origin</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="dialog__body_section">
+                <mat-form-field appearance="outline" style="width: 250px;">
+                    <mat-label>Rounds</mat-label>
+                    <input type="number" matInput formControlName="rounds">
+                    <mat-error>Please add rounds</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+        }
+
+    </div>
+
+    <div mat-dialog-actions align="center" class="dialog__footer">
+        <button class="dialog__footer_btn" (click)="addPlayers()">Play</button>
+    </div>
+</div>

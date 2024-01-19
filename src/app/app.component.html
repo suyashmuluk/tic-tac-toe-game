@@ -1,0 +1,95 @@
+<router-outlet></router-outlet>
+<div class="container">
+	<div class="container__title">Tic Tac Toe</div>
+
+	@if (next_player !== '') {
+	<div class="rounds">
+		Round {{current_round}} of {{rounds}}
+	</div>
+	<div id="statusArea" class="status">
+		<span>{{next_player}}'s Turn</span>
+	</div>
+	}
+
+	<div class="score__container" *ngIf="player_1 && player_2">
+		<div class="score__card">
+			{{player_1}} - {{player_1_wins}}
+		</div>
+		<div class="score__card">
+			{{player_2}} - {{player_2_wins}}
+		</div>
+	</div>
+
+	<div id="winnerArea" class="winner_cntr" *ngIf="winner !== ''">
+		<div class="winner_header">
+			<div class="winner_header_title" [ngClass]="winner === 'none' ? 'draw' : ''">
+				<ng-container *ngIf="current_round !== rounds">
+					@if (winner !== 'none') {
+					<span>{{winner}}</span> Won Round {{current_round}}
+					} @else {
+					Match Draw
+					}
+				</ng-container>
+
+				<ng-container *ngIf="current_round === rounds">
+					<div class="points__table_container">
+						<div class="points__table_container_title">Points Table</div>
+						<table class="points__table">
+							<tr>
+								<td>
+									<div class="points__table_header">Total Matches</div>
+								</td>
+								<td>
+									<div class="points__table_data">{{rounds}}</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="points__table_header">{{player_1}} Won</div>
+								</td>
+								<td>
+									<div class="points__table_data">{{player_1_wins}}</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="points__table_header">{{player_2}} Won</div>
+								</td>
+								<td>
+									<div class="points__table_data">{{player_2_wins}}</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="points__table_header">Draw</div>
+								</td>
+								<td>
+									<div class="points__table_data">{{draw_matches}}</div>
+								</td>
+							</tr>
+						</table>
+						
+						<div class="points__table_container_title" style="font-size: 32px; margin-top: 2rem;">
+							@if (player_1_wins > player_2_wins) {
+								{{player_1}} Won the series
+							} @else if (player_2_wins > player_1_wins) {
+								{{player_2}} Won the series
+							} @else {
+								Series Draw
+							}
+						</div>
+					</div>
+				</ng-container>
+			</div>
+			<button class="winner_header_btn" *ngIf="current_round === rounds" (click)="playAgain()">Play Again</button>
+		</div>
+	</div>
+
+	<section>
+		<div class="row" *ngFor="let row of [1, 2, 3]">
+			<button *ngFor="let col of [1, 2, 3]" class="square" (click)="play(row, col)" id="{{row}}_{{col}}"></button>
+		</div>
+		<button (click)="reset()" class="reset_btn" *ngIf="counter > 1">Reset Board</button>
+	</section>
+</div>
+<div id="confetti-container"></div>
