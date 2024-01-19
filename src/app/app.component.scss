@@ -1,6 +1,7 @@
 .container {
     position: relative;
-    background-color: #141414;
+    background-color: #1d1d1d;
+    height: 100vh;
 
     &__title {
         color: #fff;
@@ -36,9 +37,9 @@
         left: 0;
         right: 0;
         text-align: center;
-        
+
         &_title {
-            background-color: #ffe14d;
+            background-color: #1cc174;
             font-size: 42px;
             text-align: center;
             font-weight: bold;
@@ -62,7 +63,8 @@
         }
 
         .draw {
-            background-color: #ff0000;
+            background-color: #ffe14d;
+            color: #141414;
         }
     }
 
@@ -79,7 +81,8 @@
             margin: 0 auto;
             width: 20%;
 
-            &_header, &_data {
+            &_header,
+            &_data {
                 text-align: left;
                 padding: 4px;
                 font-size: 22px;
@@ -102,10 +105,10 @@
     }
 
     .score__card:first-child {
-        color: #ff0000;
+        color: #eb94ff;
     }
     .score__card:last-child {
-        color: #f4b41a;
+        color: #8cffe1;
     }
 }
 
@@ -147,14 +150,14 @@ section {
     height: 80px;
     border: 0px solid #434343;
     transition: all 0.3s ease-in-out;
-    background-color: #141414;
+    background-color: #1d1d1d;
     color: #fff;
     font-size: 60px;
-}
 
-.square:hover {
-    cursor: pointer;
-    background-color: #2c2c2c;
+    &:hover {
+        cursor: pointer;
+        background-color: #242424;
+    }
 }
 
 .reset_btn {
@@ -173,11 +176,11 @@ section {
 }
 
 .even_color {
-    color: #f4b41a !important;
+    color: #8cffe1 !important;
     pointer-events: none;
 }
 .odd_color {
-    color: #ff0000 !important;
+    color: #eb94ff !important;
     pointer-events: none;
 }
 

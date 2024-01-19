@@ -106,12 +106,7 @@ export class AppComponent implements OnInit {
 					this.winner = 'none';
 					this.draw_matches++;
 
-					if (this.current_round !== this.rounds) {
-						setTimeout(() => {
-							this.reset();
-							this.current_round++;
-						}, 3000);
-					}
+					this.resettingAfterRound();
 				}
 			}
 		}
@@ -126,14 +121,17 @@ export class AppComponent implements OnInit {
 			this.player_1_wins++;
 		}
 		this.confetti();
+		this.resettingAfterRound();
+		return;
+	}
 
+	resettingAfterRound() {
 		if (this.current_round !== this.rounds) {
 			setTimeout(() => {
 				this.reset();
 				this.current_round++;
 			}, 3000);
 		}
-		return;
 	}
 
 	toggleClasses(value: any) {
@@ -172,11 +170,13 @@ export class AppComponent implements OnInit {
 		this.winner = '';
 		this.next_player = `${this.player_1} (X)`;
 		this.toggleClasses('enable');
+
 		if (value) {
 			this.player_1_wins = 0;
 			this.player_2_wins = 0;
 			this.current_round = 1;
 			this.rounds = 0;
+			this.draw_matches = 0;
 		}
 	}
 
