@@ -29,6 +29,7 @@
     inset: 0;
     background-color: #141414;
     opacity: 0.9;
+    z-index: 1;
 
     .winner_header {
         position: absolute;
@@ -138,11 +139,37 @@
 }
 
 section {
-    display: flex;
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-flow: column;
     margin-top: 5rem;
+
+    @mixin common_strip {
+        position: absolute;
+        background-color: #8cffe1;
+        transition: all 0.3s ease-in;
+    }
+
+    .strip_hrz {
+        @include common_strip;
+        left: 0%;
+        height: 2px;
+        width: 0%;
+    }
+
+    .strip_vrt {
+        @include common_strip;
+        width: 2px;
+        height: 0%;
+    }
+
+    .strip_cross {
+        @include common_strip;
+        width: 2px;
+        height: 0%;
+    }
 }
 
 .square {
@@ -195,4 +222,77 @@ section {
     width: 100%;
     height: 100%;
     pointer-events: none; /* Allow interaction with elements beneath the confetti */
+}
+
+.hrz_win_strip_animation {
+    animation: win_strip_hrz 1s ease-in-out 0s 1 normal;
+}
+
+.vrt_win_strip_animation {
+    animation: win_strip_vrt 1s ease-in-out 0s 1 normal;
+}
+
+.cross_win_strip_animation {
+    animation: win_strip_cross 1s ease-in-out 0s 1 normal;
+}
+
+@keyframes win_strip_hrz {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes win_strip_vrt {
+    0% {
+        height: 0%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+@keyframes win_strip_cross {
+    0% {
+        height: 0%;
+    }
+    100% {
+        height: 120%;
+    }
+}
+
+.top_box_match {
+    top: 40px;
+}
+
+.middle_box_match {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bottom_box_match {
+    bottom: 40px;
+}
+
+.leftmost_box_match {
+    left: 40px;
+}
+
+.rightmost_box_match {
+    right: 40px;
+}
+
+.middlevertical_box_match {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ltr_cross {
+    transform: rotate(45deg);
+}
+
+.rtl_cross {
+    transform: rotate(-45deg);
 }

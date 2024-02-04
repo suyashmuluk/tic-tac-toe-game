@@ -68,14 +68,14 @@
 								</td>
 							</tr>
 						</table>
-						
+
 						<div class="points__table_container_title" style="font-size: 32px; margin-top: 2rem;">
 							@if (player_1_wins > player_2_wins) {
-								{{player_1}} Won the series
+							{{player_1}} Won the series
 							} @else if (player_2_wins > player_1_wins) {
-								{{player_2}} Won the series
+							{{player_2}} Won the series
 							} @else {
-								Series Draw
+							Series Draw
 							}
 						</div>
 					</div>
@@ -85,11 +85,20 @@
 		</div>
 	</div>
 
-	<section>
-		<div class="row" *ngFor="let row of [1, 2, 3]">
-			<button *ngFor="let col of [1, 2, 3]" class="square" (click)="play(row, col)" id="{{row}}_{{col}}"></button>
-		</div>
-		<button (click)="reset()" class="reset_btn" *ngIf="counter > 1">Reset Board</button>
-	</section>
+	<div style="text-align: center;">
+		<section>
+			<div class="row" *ngFor="let row of [1, 2, 3]">
+				<button *ngFor="let col of [1, 2, 3]" class="square" (click)="play(row, col)"
+					id="{{row}}_{{col}}"></button>
+			</div>
+			<button (click)="reset()" class="reset_btn" *ngIf="counter > 1">Reset Board</button>
+			<!-- *ngIf="winner !== '' && winner !== 'none'" -->
+			<ng-container>
+				<div class="strip_hrz" id="strip_hrz"></div>
+				<div class="strip_vrt" id="strip_vrt"></div>
+				<div class="strip_cross" id="strip_cross"></div>
+			</ng-container>
+		</section>
+	</div>
 </div>
 <div id="confetti-container"></div>

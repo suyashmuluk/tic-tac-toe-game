@@ -41,7 +41,7 @@ export class DialogComponent implements OnInit {
     this.player_form = this.formBuilder.group({
       player_1: ['', Validators.required],
       player_2: ['', Validators.required],
-      rounds: ['', Validators.required]
+      rounds: [1, Validators.required]
     });
 
     if (this.data.player_info.player_1 !== '' && this.data.player_info.player_2 !== '') {
