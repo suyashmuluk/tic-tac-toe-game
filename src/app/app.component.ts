@@ -132,32 +132,14 @@ export class AppComponent implements OnInit {
 		}
 	}
 
-	addStrip(matched_elements: any) {
-		let strip_hrz = document.getElementById('strip_hrz');
-		let strip_vrt = document.getElementById('strip_vrt');
-		let strip_cross = document.getElementById('strip_cross');
-
-		if (['1_1', '1_2', '1_3'].every(val => matched_elements.includes(val))) {
-			strip_hrz?.classList.add('hrz_win_strip_animation', 'top_box_match');
-		} else if (['2_1', '2_2', '2_3'].every(val => matched_elements.includes(val))) {
-			strip_hrz?.classList.add('hrz_win_strip_animation', 'middle_box_match');
-		} else if(['3_1', '3_2', '3_3'].every(val => matched_elements.includes(val))) {
-			strip_hrz?.classList.add('hrz_win_strip_animation', 'bottom_box_match');
-		}
-	}
-
 	winningConditionSatisfy(value: any, matched_elements: any) {
-		this.addStrip(matched_elements);
-
-		setTimeout(() => {
-			if (value === 'even') {
-				this.winner = this.player_2;
-				this.player_2_wins++;
-			} else if (value === 'odd') {
-				this.winner = this.player_1;
-				this.player_1_wins++;
-			}
-		}, 1200)
+		if (value === 'even') {
+			this.winner = this.player_2;
+			this.player_2_wins++;
+		} else if (value === 'odd') {
+			this.winner = this.player_1;
+			this.player_1_wins++;
+		}
 		this.confetti();
 		this.resettingAfterRound();
 		return;

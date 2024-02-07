@@ -145,31 +145,6 @@ section {
     justify-content: center;
     flex-flow: column;
     margin-top: 5rem;
-
-    @mixin common_strip {
-        position: absolute;
-        background-color: #8cffe1;
-        transition: all 0.3s ease-in;
-    }
-
-    .strip_hrz {
-        @include common_strip;
-        left: 0%;
-        height: 2px;
-        width: 0%;
-    }
-
-    .strip_vrt {
-        @include common_strip;
-        width: 2px;
-        height: 0%;
-    }
-
-    .strip_cross {
-        @include common_strip;
-        width: 2px;
-        height: 0%;
-    }
 }
 
 .square {

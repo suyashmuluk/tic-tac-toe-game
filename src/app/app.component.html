@@ -92,12 +92,6 @@
 					id="{{row}}_{{col}}"></button>
 			</div>
 			<button (click)="reset()" class="reset_btn" *ngIf="counter > 1">Reset Board</button>
-			<!-- *ngIf="winner !== '' && winner !== 'none'" -->
-			<ng-container>
-				<div class="strip_hrz" id="strip_hrz"></div>
-				<div class="strip_vrt" id="strip_vrt"></div>
-				<div class="strip_cross" id="strip_cross"></div>
-			</ng-container>
 		</section>
 	</div>
 </div>
