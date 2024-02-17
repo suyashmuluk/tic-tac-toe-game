@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import party from "party-js";
+import { Title } from '@angular/platform-browser';
 @Component({
 	selector: 'app-root',
 	standalone: true,
@@ -12,7 +13,7 @@ import party from "party-js";
 	styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-	title = 'tic-tac-toe';
+	title = 'Tic Tac Toe';
 	counter = 1;
 	next_player: String = '';
 	odd_clicked: string[] = [];
@@ -27,8 +28,13 @@ export class AppComponent implements OnInit {
 	current_round = 1;
 	draw_matches = 0;
 	matched_elements: any;
+	interval_id: any;
 
-	constructor(private dialog: MatDialog) { }
+	constructor(private dialog: MatDialog, private app_title: Title) { }
+
+	ngOnChanges(changes: SimpleChanges): void {
+		// this.setDynamicTitle()
+	}
 
 	ngOnInit(): void {
 		// Open dialog for player info only when there is no data stored in localstorage
@@ -42,6 +48,7 @@ export class AppComponent implements OnInit {
 			this.player_2 = JSON.parse(stored_players).player_2;
 			this.next_player = `${this.player_1} (X)`;
 			this.rounds = JSON.parse(stored_players).rounds;
+			this.setDynamicTitle()
 		}
 	}
 
@@ -60,6 +67,7 @@ export class AppComponent implements OnInit {
 			this.player_2 = data['player_2'];
 			this.rounds = data['rounds'];
 			this.next_player = `${this.player_1} (X)`;
+			this.setDynamicTitle()
 
 			let players = {
 				player_1: this.player_1,
@@ -71,7 +79,6 @@ export class AppComponent implements OnInit {
 	}
 
 	play(row: any, col: any) {
-		console.log(row + '_' + col)
 		const element = document.getElementById(row + '_' + col);
 		const is_even = this.counter % 2 === 0;
 
@@ -99,7 +106,7 @@ export class AppComponent implements OnInit {
 
 						// If condition satisfies, declaring winner and resetting board
 						if (even_satisfy) {
-							this.winningConditionSatisfy('even', this.matched_elements);
+							this.winningConditionSatisfy('even');
 						}
 					}
 				} else {
@@ -114,7 +121,7 @@ export class AppComponent implements OnInit {
 
 						// If condition satisfies, declaring winner and resetting board
 						if (odd_satisfy) {
-							this.winningConditionSatisfy('odd', this.matched_elements);
+							this.winningConditionSatisfy('odd');
 						}
 					}
 				}
@@ -128,11 +135,13 @@ export class AppComponent implements OnInit {
 
 					this.resettingAfterRound();
 				}
+
+				this.setDynamicTitle();
 			}
 		}
 	}
 
-	winningConditionSatisfy(value: any, matched_elements: any) {
+	winningConditionSatisfy(value: any) {
 		if (value === 'even') {
 			this.winner = this.player_2;
 			this.player_2_wins++;
@@ -151,6 +160,8 @@ export class AppComponent implements OnInit {
 				this.reset();
 				this.current_round++;
 			}, 3000);
+
+			this.setDynamicTitle()
 		}
 	}
 
@@ -173,12 +184,6 @@ export class AppComponent implements OnInit {
 				}
 			}
 		});
-
-		if (value === 'enable') {
-			strip_hrz?.classList.remove('hrz_win_strip_animation', 'top_box_match', 'middle_box_match', 'bottom_box_match');
-			strip_vrt?.classList.remove('vrt_win_strip_animation', 'leftmost_box_match', 'rightmost_box_match', 'middlevertical_box_match');
-			strip_cross?.classList.remove('cross_win_strip_animation', 'ltr_cross', 'rtl_cross');
-		}
 	}
 
 	confetti(event?: any) {
@@ -199,6 +204,7 @@ export class AppComponent implements OnInit {
 		this.winner = '';
 		this.next_player = `${this.player_1} (X)`;
 		this.toggleClasses('enable');
+		this.setDynamicTitle()
 
 		if (value) {
 			this.player_1_wins = 0;
@@ -213,4 +219,21 @@ export class AppComponent implements OnInit {
 		this.reset('play_again');
 		this.openDialog();
 	}
+
+	setDynamicTitle() {
+		if (this.winner === '') {
+			this.app_title.setTitle(`Tic tac Toe (${this.next_player}'s Turn)`);
+		} else if (this.winner !== 'none') {
+			this.app_title.setTitle(`Tic tac Toe (${this.winner} won round ${this.current_round})`);
+		} else if (this.winner === 'none') {
+			this.app_title.setTitle(`Tic tac Toe (Match Draw)`);
+		}
+	}
+
+	ngOnDestroy(): void {
+		//Called once, before the instance is destroyed.
+		//Add 'implements OnDestroy' to the class.
+		clearInterval(this.interval_id);
+	}
+
 }
