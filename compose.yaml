@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: .
+    image: tictactoe
+    ports:
+      - 4200:80
+    container_name: tictactoe

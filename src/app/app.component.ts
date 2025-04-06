@@ -15,10 +15,19 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent implements OnInit {
 	title = 'Tic Tac Toe';
 	counter = 1;
-	next_player: String = '';
+	next_player: string = '';
 	odd_clicked: string[] = [];
 	even_clicked: string[] = [];
-	possibilities = [['1_1', '1_2', '1_3'], ['1_1', '2_1', '3_1'], ['1_1', '2_2', '3_3'], ['1_2', '2_2', '3_2'], ['1_3', '2_3', '3_3'], ['1_3', '2_2', '3_1'], ['2_1', '2_2', '2_3'], ['3_1', '3_2', '3_3']];
+	possibilities = [
+		['1_1', '1_2', '1_3'],
+		['1_1', '2_1', '3_1'],
+		['1_1', '2_2', '3_3'],
+		['1_2', '2_2', '3_2'],
+		['1_3', '2_3', '3_3'],
+		['1_3', '2_2', '3_1'],
+		['2_1', '2_2', '2_3'],
+		['3_1', '3_2', '3_3']
+	];
 	winner: string = '';
 	player_1: any;
 	player_2: any;
@@ -33,21 +42,21 @@ export class AppComponent implements OnInit {
 	constructor(private dialog: MatDialog, private app_title: Title) { }
 
 	ngOnChanges(changes: SimpleChanges): void {
-		// this.setDynamicTitle()
+		this.setDynamicTitle()
 	}
 
 	ngOnInit(): void {
 		// Open dialog for player info only when there is no data stored in localstorage
-		let stored_players = localStorage.getItem('players');
-		if (!stored_players) {
+		let stored_config = localStorage.getItem('game_config');
+		if (!stored_config) {
 			this.openDialog();
 		}
 		else {
 			// Storing necessary data initially
-			this.player_1 = JSON.parse(stored_players).player_1;
-			this.player_2 = JSON.parse(stored_players).player_2;
+			this.player_1 = JSON.parse(stored_config).player_1;
+			this.player_2 = JSON.parse(stored_config).player_2;
 			this.next_player = `${this.player_1} (X)`;
-			this.rounds = JSON.parse(stored_players).rounds;
+			this.rounds = JSON.parse(stored_config).rounds;
 			this.setDynamicTitle()
 		}
 	}
@@ -69,12 +78,12 @@ export class AppComponent implements OnInit {
 			this.next_player = `${this.player_1} (X)`;
 			this.setDynamicTitle()
 
-			let players = {
+			let game_config = {
 				player_1: this.player_1,
 				player_2: this.player_2,
 				rounds: this.rounds
 			}
-			localStorage.setItem('players', JSON.stringify(players))
+			localStorage.setItem('game_config', JSON.stringify(game_config))
 		})
 	}
 
@@ -149,6 +158,7 @@ export class AppComponent implements OnInit {
 			this.winner = this.player_1;
 			this.player_1_wins++;
 		}
+		this.setDynamicTitle();
 		this.confetti();
 		this.resettingAfterRound();
 		return;

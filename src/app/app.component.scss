@@ -4,6 +4,7 @@
     height: 100vh;
 
     &__title {
+        letter-spacing: 4px;
         color: #fff;
         font-size: 48px;
         text-align: center;
@@ -12,7 +13,7 @@
 }
 
 .rounds {
-    color: #fff;
+    color: #ffe14d;
     text-align: center;
     font-size: 28px;
     margin-bottom: 1.5rem;
@@ -56,7 +57,6 @@
             font-size: 20px;
             padding: 10px 20px;
             border-radius: 20px;
-            font-weight: bold;
 
             &:hover {
                 cursor: pointer;
